@@ -1,26 +1,58 @@
-import React from 'react'
+import React, { useState } from 'react'
 
+const initialValues = {
+    event_name: '',
+    event_date: '',
+    event_time: '',
+    event_location: '',
 
+    item1: '',
+    item2: '',
+    item3: '',
+    item4: '',
+    item5: '',
+
+    event_description: ''
+}
+
+const initialErrors = {
+    event_name: '',
+    event_date: '',
+    event_time: '',
+    event_location: '',
+}
 
 function CreateEvent(props) {
 
+    const [formValues, setFormValues] = useState(initialValues)
+    const [formErrors, setFormErrors] = useState(initialErrors)
+
     const {
-        values,
-        submit,
-        change,
-        disabled,
-        errors
+        disabled
     } = props
 
     const onSubmit = evt => {
         evt.preventDefault()
-        submit()
+        
+        const newPotluck = {
+            // event_name: formValues.event_name.trim(),
+            // event_date: formValues.event_date,
+            // event_time: formValues.event_time,
+            // event_location: formValues.event_location.trim(),
+            // item1: formValues.item1.trim(),
+            // item2: formValues.item2.trim(),
+            // item3: formValues.item3.trim(),
+            // item4: formValues.item4.trim(),
+            // item5: formValues.item5.trim(),
+            // event_description: formValues.event_description.trim()
+            ...formValues.trim()
+        }
+        // postNewPotluck(newPotluck) // For now, make a dummy array, but make sure this gets (axios.post)ed to the API that the backend guys create
     }
 
     const onChange = evt => {
-        const { name, value, type, checked } = evt.target
-        const valueToUse = type === 'checkbox' ? checked : value
-        change(name, valueToUse)
+        const { name, value } = evt.target
+        setFormValues({ ...formValues, [name]: value })
     }
 
     return(
@@ -35,15 +67,19 @@ function CreateEvent(props) {
             </header>
             <div className='createEventForm'>
                 <form id='new-event-form' onSubmit={onSubmit}>
+
                     <div className='valid-errors'>
-                        {/* Complete when required fields are all created */}
+                        <div>{formErrors.event_name}</div>
+                        <div>{formErrors.event_date}</div>
+                        <div>{formErrors.event_time}</div>
+                        <div>{formErrors.event_location}</div>
                     </div>
 
                     <label>Event Name:
                         <input 
                             name='event-name-input'
                             type='text'
-                            value={values.name}
+                            value={formValues.event_name}
                             onChange={onChange}
                         />
                     </label>
@@ -52,7 +88,7 @@ function CreateEvent(props) {
                         <input 
                             name='event-date-input'
                             type='date'
-                            value={values.date}
+                            value={formValues.event_date}
                             onChange={onChange}
                         />
                     </label>
@@ -61,7 +97,7 @@ function CreateEvent(props) {
                         <input 
                             name='event-time-input'
                             type='time'
-                            value={values.time}
+                            value={formValues.event_time}
                             onChange={onChange}
                         />
                     </label>
@@ -70,7 +106,7 @@ function CreateEvent(props) {
                         <input 
                             name='event-location-input'
                             type='text'
-                            value={values.location}
+                            value={formValues.event_location}
                             onChange={onChange}
                         />                        
                     </label>
@@ -82,31 +118,31 @@ function CreateEvent(props) {
                         <input 
                             name='item1-input'
                             type='text'
-                            value={values.item1}
+                            value={formValues.item1}
                             onChange={onChange}
                         />
                         <input 
                             name='item2-input'
                             type='text'
-                            value={values.item2}
+                            value={formValues.item2}
                             onChange={onChange}
                         />
                         <input 
                             name='item3-input'
                             type='text'
-                            value={values.item3}
+                            value={formValues.item3}
                             onChange={onChange}
                         />
                         <input 
                             name='item4-input'
                             type='text'
-                            value={values.item4}
+                            value={formValues.item4}
                             onChange={onChange}
                         />
                         <input 
                             name='item5-input'
                             type='text'
-                            value={values.item5}
+                            value={formValues.item5}
                             onChange={onChange}
                         />
                     </fieldset>
@@ -115,7 +151,7 @@ function CreateEvent(props) {
                         <input 
                             name='event-description-input'
                             type='text'
-                            value={values.description}
+                            value={formValues.event_description}
                             onChange={onChange}
                         />
                     </label>
