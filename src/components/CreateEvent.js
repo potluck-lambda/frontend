@@ -22,10 +22,14 @@ const initialErrors = {
     event_location: '',
 }
 
+const dummyArray = []
+
 function CreateEvent(props) {
 
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialErrors)
+
+    const [dummy, setDummy] = useState(dummyArray)
 
     const {
         disabled
@@ -45,8 +49,13 @@ function CreateEvent(props) {
             // item4: formValues.item4.trim(),
             // item5: formValues.item5.trim(),
             // event_description: formValues.event_description.trim()
-            ...formValues.trim()
+            ...formValues.trim()            
         }
+        console.log(newPotluck)
+        setDummy([...dummy, newPotluck])
+        setFormValues(initialValues)
+        setFormErrors(initialErrors)
+        console.log(dummy)
         // postNewPotluck(newPotluck) // For now, make a dummy array, but make sure this gets (axios.post)ed to the API that the backend guys create
     }
 
@@ -77,7 +86,7 @@ function CreateEvent(props) {
 
                     <label>Event Name:
                         <input 
-                            name='event-name-input'
+                            name='event_name'
                             type='text'
                             value={formValues.event_name}
                             onChange={onChange}
@@ -86,7 +95,7 @@ function CreateEvent(props) {
 
                     <label>Date:
                         <input 
-                            name='event-date-input'
+                            name='event_date'
                             type='date'
                             value={formValues.event_date}
                             onChange={onChange}
@@ -95,7 +104,7 @@ function CreateEvent(props) {
 
                     <label>Time:
                         <input 
-                            name='event-time-input'
+                            name='event_time'
                             type='time'
                             value={formValues.event_time}
                             onChange={onChange}
@@ -104,7 +113,7 @@ function CreateEvent(props) {
 
                     <label>Event Location:
                         <input 
-                            name='event-location-input'
+                            name='event_location'
                             type='text'
                             value={formValues.event_location}
                             onChange={onChange}
@@ -116,31 +125,31 @@ function CreateEvent(props) {
                         <legend>Items to bring (optional):</legend>
 
                         <input 
-                            name='item1-input'
+                            name='item1'
                             type='text'
                             value={formValues.item1}
                             onChange={onChange}
                         />
                         <input 
-                            name='item2-input'
+                            name='item2'
                             type='text'
                             value={formValues.item2}
                             onChange={onChange}
                         />
                         <input 
-                            name='item3-input'
+                            name='item3'
                             type='text'
                             value={formValues.item3}
                             onChange={onChange}
                         />
                         <input 
-                            name='item4-input'
+                            name='item4'
                             type='text'
                             value={formValues.item4}
                             onChange={onChange}
                         />
                         <input 
-                            name='item5-input'
+                            name='item5'
                             type='text'
                             value={formValues.item5}
                             onChange={onChange}
@@ -149,7 +158,7 @@ function CreateEvent(props) {
 
                     <label>Description (optional):
                         <input 
-                            name='event-description-input'
+                            name='event_description'
                             type='text'
                             value={formValues.event_description}
                             onChange={onChange}
