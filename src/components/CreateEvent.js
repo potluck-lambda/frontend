@@ -1,5 +1,10 @@
 import React, { useState, useEffect } from 'react'
 import * as yup from 'yup'
+// import { reach } from 'yup'
+
+// So that dates in the past are not valid
+const today = new Date();
+today.setHours(0, 0, 0, 0)
 
 const initialValues = {
     event_name: '',
@@ -34,31 +39,30 @@ function CreateEvent(props) {
     const [formErrors, setFormErrors] = useState(initialErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
 
+    // temporary - replace with a backend pull
     const [dummy, setDummy] = useState(dummyArray)
 
     const onSubmit = evt => {
         evt.preventDefault()
         
         const newPotluck = {
-            // event_name: formValues.event_name.trim(),
-            // event_date: formValues.event_date,
-            // event_time: formValues.event_time,
-            // event_location: formValues.event_location.trim(),
-            // item1: formValues.item1.trim(),
-            // item2: formValues.item2.trim(),
-            // item3: formValues.item3.trim(),
-            // item4: formValues.item4.trim(),
-            // item5: formValues.item5.trim(),
-            // event_description: formValues.event_description.trim()
             ...formValues            
         }
+        // temporary behavior. this puts newPotluck into dummy, but will eventually post to backend
         console.log(newPotluck)
         setDummy([...dummy, newPotluck])
         console.log(dummy)
         setFormValues(initialValues)
         setFormErrors(initialErrors)
-        // postNewPotluck(newPotluck) // For now, make a dummy array, but make sure this gets (axios.post)ed to the API that the backend guys create
     }
+
+    // Currently, the errors do not display on the DOM, but they DO stop the submit button from prematurely activating
+    // const validate = (name, value) => {
+    //     reach(formSchema, name)
+    //         .validate(value)
+    //         .then(() => setFormErrors({ ...formErrors, [name]: ''}))
+    //         .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0]}))
+    // }
 
     const onChange = evt => {
         const { name, value } = evt.target
@@ -197,10 +201,11 @@ const formSchema = yup.object().shape({
         .trim()
         .required('please name your event'),
     
-    // currently allows the setting of dates and times in the past
+    // currently allows the setting of times in the past
     event_date: yup
         .date()
-        .required('please select a date'),
+        .required('please select a date')
+        .min(today, 'date cannot be in the past'),        
 
     event_time: yup
         .string()
