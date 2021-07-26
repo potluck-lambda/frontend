@@ -1,4 +1,5 @@
-import React, { useState } from 'react'
+import React, { useState, useEffect } from 'react'
+import * as yup from 'yup'
 
 const initialValues = {
     event_name: '',
@@ -15,6 +16,7 @@ const initialValues = {
     event_description: ''
 }
 
+// errors are not yet implemented, allowing empty potluck entries
 const initialErrors = {
     event_name: '',
     event_date: '',
@@ -22,18 +24,17 @@ const initialErrors = {
     event_location: '',
 }
 
+const initialDisabled = true
+
 const dummyArray = []
 
 function CreateEvent(props) {
 
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialErrors)
+    const [disabled, setDisabled] = useState(initialDisabled)
 
     const [dummy, setDummy] = useState(dummyArray)
-
-    const {
-        disabled
-    } = props
 
     const onSubmit = evt => {
         evt.preventDefault()
@@ -64,12 +65,17 @@ function CreateEvent(props) {
         setFormValues({ ...formValues, [name]: value })
     }
 
+    useEffect(() => {
+        formSchema.isValid(formValues).then(valid => setDisabled(!valid))
+    }, [formValues])
+
+    // FORM
     return(
         <div>
             <header>
                 <h2>Create Event</h2>
                 <nav>
-                    {/* These buttons will both link back to the List of Events page */}
+                    {/* The cancel buttons will eventually link back to the List of Events page */}
                     <button>Cancel</button>                    
                 </nav>
             </header>
@@ -171,4 +177,59 @@ function CreateEvent(props) {
     )
 }
 
-export default CreateEvent
+// FORM VALIDATION
+const formSchema = yup.object().shape({
+    // event_name: '',
+    // event_date: '',
+    // event_time: '',
+    // event_location: '',
+
+    // item1: '',
+    // item2: '',
+    // item3: '',
+    // item4: '',
+    // item5: '',
+
+    // event_description: ''
+
+    event_name: yup
+        .string()
+        .trim()
+        .required('please name your event'),
+    
+    // currently allows the setting of dates and times in the past
+    event_date: yup
+        .date()
+        .required('please select a date'),
+
+    event_time: yup
+        .string()
+        .required('please select a time'),
+
+    event_location: yup
+        .string()
+        .trim()
+        .required('please provide a location'),
+
+    // I don't know how a yup shape would look with a dynamic field
+    item1: yup
+        .string()
+        .trim(),
+    item2: yup
+        .string()
+        .trim(),
+    item3: yup
+        .string()
+        .trim(),
+    item4: yup
+        .string()
+        .trim(),
+    item5: yup
+        .string()
+        .trim(),
+    event_description: yup
+        .string()
+        .trim()
+})
+
+export { CreateEvent, formSchema }
