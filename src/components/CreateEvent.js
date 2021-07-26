@@ -211,25 +211,25 @@ const formSchema = yup.object().shape({
         .trim()
         .required('please provide a location'),
 
-    // I don't know how a yup shape would look with a dynamic field
-    item1: yup
-        .string()
-        .trim(),
-    item2: yup
-        .string()
-        .trim(),
-    item3: yup
-        .string()
-        .trim(),
-    item4: yup
-        .string()
-        .trim(),
-    item5: yup
-        .string()
-        .trim(),
-    event_description: yup
-        .string()
-        .trim()
+    // I don't know how a yup shape would look with a dynamic field -- Turns out they don't need to be here, resume!
+    // item1: yup
+    //     .string()
+    //     .trim(),
+    // item2: yup
+    //     .string()
+    //     .trim(),
+    // item3: yup
+    //     .string()
+    //     .trim(),
+    // item4: yup
+    //     .string()
+    //     .trim(),
+    // item5: yup
+    //     .string()
+    //     .trim(),
+    // event_description: yup
+    //     .string()
+    //     .trim()
 })
 
 export { CreateEvent, formSchema }
