@@ -49,13 +49,13 @@ function CreateEvent(props) {
             // item4: formValues.item4.trim(),
             // item5: formValues.item5.trim(),
             // event_description: formValues.event_description.trim()
-            ...formValues.trim()            
+            ...formValues            
         }
         console.log(newPotluck)
         setDummy([...dummy, newPotluck])
+        console.log(dummy)
         setFormValues(initialValues)
         setFormErrors(initialErrors)
-        console.log(dummy)
         // postNewPotluck(newPotluck) // For now, make a dummy array, but make sure this gets (axios.post)ed to the API that the backend guys create
     }
 
@@ -70,8 +70,7 @@ function CreateEvent(props) {
                 <h2>Create Event</h2>
                 <nav>
                     {/* These buttons will both link back to the List of Events page */}
-                    <button>Cancel</button>
-                    <button id='submitBtn' disabled={disabled}>Submit</button>
+                    <button>Cancel</button>                    
                 </nav>
             </header>
             <div className='createEventForm'>
@@ -164,6 +163,8 @@ function CreateEvent(props) {
                             onChange={onChange}
                         />
                     </label>
+
+                    <button id='submitBtn' disabled={disabled}>Submit</button>
                 </form>
             </div>
         </div>        
