@@ -12,10 +12,12 @@ import reducer from './reducer'
 const store = createStore(reducer, applyMiddleware(thunk, logger))
 
 ReactDOM.render(
-  <Provider store={store}>
+  
     <Router>
+      <Provider store={store}>
       <App />
-    </Router>
-  </Provider>,
+      </Provider>
+    </Router>,
+  
   document.getElementById('root')
 )
