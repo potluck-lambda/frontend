@@ -22,6 +22,12 @@ function EventCard(props) {
             <span> {details.potluck_country},</span>
             <span> {details.potluck_zip}</span>
             </p>
+
+            <div className='buttons'>
+                <button>Sign Up!</button>
+                <button>Edit Potluck</button>
+                <button>Delete Potluck</button>
+            </div>
         </div>
     )
 }
