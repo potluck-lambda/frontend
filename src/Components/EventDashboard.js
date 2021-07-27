@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
+import { Link } from 'react-router-dom'
 
 import EventCard from './EventCard'
 
@@ -21,6 +22,10 @@ function EventDashboard(props) {
     return (
         <div>
             <h2>Potlucks</h2>
+            <Link to='/protected/createevent'>
+                <button>Create new potluck</button>
+            </Link>
+            
             {
                 events.map(ev => {
                     return (
