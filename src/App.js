@@ -7,7 +7,7 @@ import Login from './Components/Login'
 // import EventListPlaceholder from ''
 // import CreateEventPlaceholder from ''
 // import EditEventPlaceholder from ''
-// import EventDetailsPlaceholder from ''
+import EventDetails from './Components/EventDetails'
 
 import { CreateEvent } from './Components/CreateEvent'
 
@@ -20,8 +20,8 @@ function App() {
           <Route exact path='/login' component={Login}/>
           {/* <Route exact path='/protected/eventlist' component={EventListPlaceholder}/> */}
           <Route path='/protected/createevent' component={CreateEvent}/>
-          {/* <Route exact path='/protected/editevent' component={EditEventPlaceholder} />
-          <Route exact path='/protected/eventdetails' component={EventDetailsPlaceholder}/> */}
+          {/* <Route exact path='/protected/editevent' component={EditEventPlaceholder} /> */}
+          <Route exact path='/protected/eventdetails' component={EventDetails}/>
         </Switch>
       </div>
   );
