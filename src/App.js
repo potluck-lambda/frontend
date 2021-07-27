@@ -15,7 +15,5 @@ function App() {
     </div>
   );
 }
-const grillImgStyle = {
- 
-}
+
 export default App;
