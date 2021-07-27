@@ -1,6 +1,6 @@
 import './App.css';
 
-import { CreateEvent } from './components/CreateEvent'
+import { CreateEvent } from './Components/CreateEvent'
 
 function App() {
   return (
