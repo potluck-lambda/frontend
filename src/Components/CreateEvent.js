@@ -1,4 +1,7 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 // import { reach } from 'yup'
 
@@ -17,7 +20,9 @@ const initialValues = {
     potluck_country: '',
     potluck_zip: '',
 
-    potluck_description: ''
+    potluck_description: '',
+
+    user_id: 1 // test : will have to be made dynamic once we get the ability to create users
 }
 
 const initialErrors = {
@@ -34,16 +39,18 @@ const initialErrors = {
 
 const initialDisabled = true
 
+// temp
 const dummyArray = []
 
 function CreateEvent(props) {
+    const history = useHistory();
+
+    // temp
+    const [events, setEvents] = useState(dummyArray)
 
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
-
-    // temporary - replace with a backend pull
-    const [dummy, setDummy] = useState(dummyArray)
 
     const onSubmit = evt => {
         evt.preventDefault()
@@ -51,21 +58,20 @@ function CreateEvent(props) {
         const newPotluck = {
             ...formValues            
         }
-        // temporary behavior. this puts newPotluck into dummy, but will eventually post to backend
         console.log(newPotluck)
-        setDummy([...dummy, newPotluck])
-        console.log(dummy)
-        setFormValues(initialValues)
-        setFormErrors(initialErrors)
-    }
 
-    // Currently, the errors do not display on the DOM, but they DO stop the submit button from prematurely activating
-    // const validate = (name, value) => {
-    //     reach(formSchema, name)
-    //         .validate(value)
-    //         .then(() => setFormErrors({ ...formErrors, [name]: ''}))
-    //         .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0]}))
-    // }
+        axios.post(`https://potluckplanner-2.herokuapp.com/api/potlucks`, newPotluck)
+            .then(res => {
+                console.log('res', res)
+                setEvents(...events, res.data)
+                setTimeout(() => {
+                    history.push('/protected/eventlist')    
+                }, 500)
+                
+            })
+            .catch(err => {console.log(err)})
+            .finally(() => {setFormValues(initialValues)}, setFormErrors(initialErrors))
+    }
 
     const onChange = evt => {
         const { name, value } = evt.target
@@ -82,8 +88,10 @@ function CreateEvent(props) {
             <header>
                 <h2>Create Event</h2>
                 <nav>
-                    {/* The cancel buttons will eventually link back to the List of Events page */}
-                    <button>Cancel</button>                    
+                    <Link to='/protected/eventlist'>
+                        <button>Cancel</button>     
+                    </Link>
+                                       
                 </nav>
             </header>
             <div className='createEventForm'>
@@ -178,7 +186,7 @@ function CreateEvent(props) {
                             onChange={onChange}
                         />
                     </label>
-
+                
                     <button id='submitBtn' disabled={disabled}>Submit</button>
                 </form>
             </div>
@@ -194,7 +202,7 @@ const formSchema = yup.object().shape({
         .trim()
         .required('please name your event'),
     
-    // currently allows the setting of times in the past
+    // currently allows the setting of times (not days) in the past
     potluck_date: yup
         .date()
         .required('please select a date')
@@ -204,10 +212,7 @@ const formSchema = yup.object().shape({
         .string()
         .required('please select a time'),
 
-    // event_location: yup
-    //     .string()
-    //     .trim()
-    //     .required('please provide a location'),
+
     potluck_street: yup
         .string()
         .required('please provide a street'),
@@ -230,5 +235,3 @@ const formSchema = yup.object().shape({
 })
 
 export { CreateEvent, formSchema }
-
-// test

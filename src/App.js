@@ -5,11 +5,11 @@ import HomePage from './Components/HomePage';
 import Login from './Components/Login'
 // import SignUpPlaceholder from ''
 import EventDashboard from './Components/EventDashboard';
-// import CreateEventPlaceholder from ''
+import { CreateEvent } from './Components/CreateEvent'
 // import EditEventPlaceholder from ''
 // import EventDetailsPlaceholder from ''
 
-import { CreateEvent } from './Components/CreateEvent'
+
 
 function App() {
   return (

@@ -16,10 +16,10 @@ function EventCard(props) {
             <p>{details.potluck_time}</p>
 
             <p>{details.potluck_street}</p>
-            
-            <p>{details.potluck_city}
-            <span> {details.potluck_state}</span>
-            <span> {details.potluck_country}</span>
+
+            <p>{details.potluck_city},
+            <span> {details.potluck_state},</span>
+            <span> {details.potluck_country},</span>
             <span> {details.potluck_zip}</span>
             </p>
         </div>
