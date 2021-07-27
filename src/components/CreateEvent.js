@@ -7,10 +7,10 @@ const today = new Date();
 today.setHours(0, 0, 0, 0)
 
 const initialValues = {
-    event_name: '',
-    event_date: '',
-    event_time: '',
-    event_location: '',
+    potluck_name: '',
+    potluck_date: '',
+    potluck_time: '',
+    event_location: '', // turn event_location into multiple values (potluck_street, potluck_city, potluck_country, and potluck_zip)
 
     item1: '',
     item2: '',
@@ -18,14 +18,13 @@ const initialValues = {
     item4: '',
     item5: '',
 
-    event_description: ''
+    potluck_description: ''
 }
 
-// errors are not yet implemented, allowing empty potluck entries
 const initialErrors = {
-    event_name: '',
-    event_date: '',
-    event_time: '',
+    potluck_name: '',
+    potluck_date: '',
+    potluck_time: '',
     event_location: '',
 }
 
@@ -87,35 +86,35 @@ function CreateEvent(props) {
                 <form id='new-event-form' onSubmit={onSubmit}>
 
                     <div className='valid-errors'>
-                        <div>{formErrors.event_name}</div>
-                        <div>{formErrors.event_date}</div>
-                        <div>{formErrors.event_time}</div>
+                        <div>{formErrors.potluck_name}</div>
+                        <div>{formErrors.potluck_date}</div>
+                        <div>{formErrors.potluck_time}</div>
                         <div>{formErrors.event_location}</div>
                     </div>
 
                     <label>Event Name:
                         <input 
-                            name='event_name'
+                            name='potluck_name'
                             type='text'
-                            value={formValues.event_name}
+                            value={formValues.potluck_name}
                             onChange={onChange}
                         />
                     </label>
 
                     <label>Date:
                         <input 
-                            name='event_date'
+                            name='potluck_date'
                             type='date'
-                            value={formValues.event_date}
+                            value={formValues.potluck_date}
                             onChange={onChange}
                         />
                     </label>
 
                     <label>Time:
                         <input 
-                            name='event_time'
+                            name='potluck_time'
                             type='time'
-                            value={formValues.event_time}
+                            value={formValues.potluck_time}
                             onChange={onChange}
                         />
                     </label>
@@ -167,9 +166,9 @@ function CreateEvent(props) {
 
                     <label>Description (optional):
                         <input 
-                            name='event_description'
+                            name='potluck_description'
                             type='text'
-                            value={formValues.event_description}
+                            value={formValues.potluck_description}
                             onChange={onChange}
                         />
                     </label>
@@ -183,31 +182,19 @@ function CreateEvent(props) {
 
 // FORM VALIDATION
 const formSchema = yup.object().shape({
-    // event_name: '',
-    // event_date: '',
-    // event_time: '',
-    // event_location: '',
 
-    // item1: '',
-    // item2: '',
-    // item3: '',
-    // item4: '',
-    // item5: '',
-
-    // event_description: ''
-
-    event_name: yup
+    potluck_name: yup
         .string()
         .trim()
         .required('please name your event'),
     
     // currently allows the setting of times in the past
-    event_date: yup
+    potluck_date: yup
         .date()
         .required('please select a date')
         .min(today, 'date cannot be in the past'),        
 
-    event_time: yup
+    potluck_time: yup
         .string()
         .required('please select a time'),
 
@@ -215,26 +202,6 @@ const formSchema = yup.object().shape({
         .string()
         .trim()
         .required('please provide a location'),
-
-    // I don't know how a yup shape would look with a dynamic field -- Turns out they don't need to be here, resume!
-    // item1: yup
-    //     .string()
-    //     .trim(),
-    // item2: yup
-    //     .string()
-    //     .trim(),
-    // item3: yup
-    //     .string()
-    //     .trim(),
-    // item4: yup
-    //     .string()
-    //     .trim(),
-    // item5: yup
-    //     .string()
-    //     .trim(),
-    // event_description: yup
-    //     .string()
-    //     .trim()
 })
 
 export { CreateEvent, formSchema }
