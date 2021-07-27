@@ -1,6 +1,8 @@
 import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 function HomePage (props){
+    const { push } = useHistory()
     return (
         <div className = 'App'>
             <div className='topContent'>
@@ -8,8 +10,8 @@ function HomePage (props){
                 <img  className= 'grillImg' src= 'https://i.kym-cdn.com/photos/images/original/001/556/116/4fb.png' alt = 'Get grilling!' width='300vh'/>
             </div>
             <div className= 'buttons'>
-                <button  className= 'login'>Login</button>
-                <button className= 'signup'>Sign Up</button>
+                <button onClick={() => push('/login')} className= 'login'>Login</button>
+                <button onClick={() => push('/sign-up')} className= 'signup'>Sign Up</button>
             </div> 
         </div>
     );

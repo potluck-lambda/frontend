@@ -1,76 +1,57 @@
-import React, { Component } from 'react';
+import React, { Component, useState } from 'react';
+import axios from 'axios'
+import { Link, useHistory } from 'react-router-dom';
 
-class Register extends Component {
-  constructor() {
-    super();
-    this.state = {
-      username: '',
-      password: '',
-      error: '',
-    };
+const initialValues = {
+  username: '',
+  password: ''
+};
 
-    this.PassChange = this.PassChange.bind(this);
-    this.UserChange = this.UserChange.bind(this);
-    this.Submit = this.Submit.bind(this);
-    this.RemoveError = this.RemoveError.bind(this);
+export default function Register() {
+
+  const [newUser, setNewUser] = useState(initialValues)
+  const {push} = useHistory()
+
+
+  const onSubmit = event => {
+      event.preventDefault()
+      axios.post('https://potluckplanner-2.herokuapp.com/auth/sign-up', newUser)
+      .then(res=>{
+          push("/login")
+      })
+      .catch(error=>{
+          alert(error.response.data.message)
+      })
+
   }
 
-  UserChange(event) {
-    this.setState({
-      username: event.target.value,
-    });
-  };
-
-  PassChange(event) {
-    this.setState({
-      password: event.target.value,
-    });
+  const onChange = (e) => {
+      const { name, value } = e.target
+      setNewUser({ ...newUser, [name]: value })
   }
 
-  RemoveError() {
-    this.setState({ error: '' });
-  }
+  return (
+    <div className="Login">
+        <h1>Potluck Sign-Up!</h1>
+      <form onSubmit={onSubmit}>
+        {/* {
+          this.state.error &&
+          <h2 data-test="error" onClick={this.RemoveError}>
+            <button onClick={this.RemoveError}>X</button>
+            {this.state.error}
+          </h2>
+        } */}
+        <label>User Name</label>
+        <input type="text" data-test="username" value={newUser.username} onChange={onChange} />
 
-  Submit(event) {
-    event.preventDefault();
+        <label>Password</label>
+        <input type="password" data-test="password" value={newUser.password} onChange={onChange} />
 
-    if (!this.state.username) {
-      return this.setState({ error: 'Username is required' });
-    }
-
-    if (!this.state.password) {
-      return this.setState({ error: 'Password is required' });
-    }
-
-    return this.setState({ error: '' });
-  }
-
- 
-  render() {
-   
-
-    return (
-      <div className="Login">
-          <h1>Potluck Sign-Up!</h1>
-        <form onSubmit={this.Submit}>
-          {
-            this.state.error &&
-            <h2 data-test="error" onClick={this.RemoveError}>
-              <button onClick={this.RemoveError}>X</button>
-              {this.state.error}
-            </h2>
-          }
-          <label>User Name</label>
-          <input type="text" data-test="username" value={this.state.username} onChange={this.UserChange} />
-
-          <label>Password</label>
-          <input type="password" data-test="password" value={this.state.password} onChange={this.PassChange} />
-
-          <input type="submit" value="Sign Up" data-test="submit" />
-        </form>
-      </div>
-    );
-  }
+        <input type="submit" value="Sign Up" data-test="submit" />
+        <a href="/login">
+              Already have an account?
+          </a>
+      </form>
+    </div>
+  )
 }
-
-export default Register;
