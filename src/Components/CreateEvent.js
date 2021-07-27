@@ -17,12 +17,6 @@ const initialValues = {
     potluck_country: '',
     potluck_zip: '',
 
-    item1: '',
-    item2: '',
-    item3: '',
-    item4: '',
-    item5: '',
-
     potluck_description: ''
 }
 
@@ -80,7 +74,7 @@ function CreateEvent(props) {
 
     useEffect(() => {
         formSchema.isValid(formValues).then(valid => setDisabled(!valid))
-    }, [formValues])
+    }, [formValues])    
 
     // FORM
     return(
@@ -164,53 +158,17 @@ function CreateEvent(props) {
                                 onChange={onChange}
                             >
                                 <option value=''>Select a Country</option>
-                                <option value='usa'>United States of America</option>
+                                <option value='USA'>United States of America</option>
                             </select>
                             <label for='potluck_zip'>ZIP Code</label>
                             <input 
                                 id='potluck_zip'
                                 name='potluck_zip'
-                                type='text'
+                                type='number'
                                 value={formValues.potluck_zip}
                                 onChange={onChange}
                             />
-                    </fieldset>
-
-                    <fieldset>
-                        {/* Eventually, I think it should be set up to have 1 input box and a button that adds more input boxes as desired. 5 boxes will do for now, I believe. */}
-                        <legend>Items to bring (optional)</legend>
-
-                        <input 
-                            name='item1'
-                            type='text'
-                            value={formValues.item1}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item2'
-                            type='text'
-                            value={formValues.item2}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item3'
-                            type='text'
-                            value={formValues.item3}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item4'
-                            type='text'
-                            value={formValues.item4}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item5'
-                            type='text'
-                            value={formValues.item5}
-                            onChange={onChange}
-                        />
-                    </fieldset>
+                    </fieldset>                    
 
                     <label>Description (optional):
                         <input 
@@ -259,10 +217,16 @@ const formSchema = yup.object().shape({
     potluck_state: yup
         .string()
         .required('please provide a state')
+        .min(2, 'two character states')
         .max(2, 'two characters only (ex. TX)'),
     potluck_country: yup
         .string()
-        .required('please select a country')
+        .required('please select a country'),
+    potluck_zip: yup
+        .string()
+        .required('please provide a zip code')
+        .min(5)
+        .max(5)
 })
 
 export { CreateEvent, formSchema }
