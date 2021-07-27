@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
 
-
-class Login extends Component {
+class Register extends Component {
   constructor() {
     super();
     this.state = {
@@ -52,7 +51,7 @@ class Login extends Component {
 
     return (
       <div className="Login">
-          <h1>Potluck Login</h1>
+          <h1>Potluck Sign-Up!</h1>
         <form onSubmit={this.Submit}>
           {
             this.state.error &&
@@ -67,15 +66,11 @@ class Login extends Component {
           <label>Password</label>
           <input type="password" data-test="password" value={this.state.password} onChange={this.PassChange} />
 
-          <input type="submit" value="Log In" data-test="submit" />
-          
-            <a href="/sign-up">
-                Register Now!
-            </a>
+          <input type="submit" value="Sign Up" data-test="submit" />
         </form>
       </div>
     );
   }
 }
 
-export default Login;
+export default Register;
