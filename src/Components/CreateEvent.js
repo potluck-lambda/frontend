@@ -126,7 +126,7 @@ function CreateEvent(props) {
 
                     <fieldset>
                         <legend>Event Address</legend>
-                            <label for='potluck_street'>Street</label>
+                            <label forhtml='potluck_street'>Street</label>
                             <input 
                                 id='potluck_street'
                                 name='potluck_street'
@@ -134,7 +134,7 @@ function CreateEvent(props) {
                                 value={formValues.potluck_street}
                                 onChange={onChange}
                             />
-                            <label for='potluck_city'>City</label>
+                            <label forhtml='potluck_city'>City</label>
                             <input 
                                 id='potluck_city'
                                 name='potluck_city'
@@ -142,7 +142,7 @@ function CreateEvent(props) {
                                 value={formValues.potluck_city}
                                 onChange={onChange}
                             />
-                            <label for='potluck_state'>State</label>
+                            <label forhtml='potluck_state'>State</label>
                             <input 
                                 id='potluck_state'
                                 name='potluck_state'
@@ -150,7 +150,7 @@ function CreateEvent(props) {
                                 value={formValues.potluck_state}
                                 onChange={onChange}
                             />
-                            <label for='potluck_country'>Country</label>
+                            <label forhtml='potluck_country'>Country</label>
                             <select
                                 id='potluck_country'
                                 name='potluck_country'
@@ -160,7 +160,7 @@ function CreateEvent(props) {
                                 <option value=''>Select a Country</option>
                                 <option value='USA'>United States of America</option>
                             </select>
-                            <label for='potluck_zip'>ZIP Code</label>
+                            <label forhtml='potluck_zip'>ZIP Code</label>
                             <input 
                                 id='potluck_zip'
                                 name='potluck_zip'
