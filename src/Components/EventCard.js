@@ -1,19 +1,24 @@
 // How individual events will display on the DOM on the event dashboard page
 import axios from 'axios'
 import React, { useEffect } from 'react'
-
+import { Link, useHistory } from 'react-router-dom'
 
 
 function EventCard(props) {
     // useEffect(() => {
     //     console.log('refresh')
     // })
-
+    const history = useHistory()
     const { details } = props
 
     useEffect(() => {
         console.log('refresh')
     }, [])
+
+    function EditPotluck(e) {
+        e.preventDefault()
+        history.push(`/protected/editevent/${details.potluck_id}`)
+    }
 
     function DeletePotluck(e) {
         e.preventDefault()
@@ -47,7 +52,7 @@ function EventCard(props) {
 
             <div className='buttons'>
                 <button>Sign Up!</button>
-                <button>Edit Potluck</button>
+                <button onClick={EditPotluck}>Edit Potluck</button>
                 <button onClick={DeletePotluck}>Delete Potluck</button>
             </div>
         </div>
