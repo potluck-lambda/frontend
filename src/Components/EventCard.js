@@ -1,15 +1,19 @@
 // How individual events will display on the DOM on the event dashboard page
 import axios from 'axios'
-import React from 'react'
+import React, { useEffect } from 'react'
 
 
 
 function EventCard(props) {
+    // useEffect(() => {
+    //     console.log('refresh')
+    // })
+
     const { details } = props
 
-    if(!details) {
-        return <h3>Fetching potlucks</h3>
-    }
+    useEffect(() => {
+        console.log('refresh')
+    }, [])
 
     function DeletePotluck(e) {
         e.preventDefault()
@@ -20,8 +24,12 @@ function EventCard(props) {
         axios.delete(`https://potluckplanner-2.herokuapp.com/api/potlucks/${potluck_id}`)
             .then(res => console.log('res', res))
             .catch(err => console.log(err))
+            // .finally(setTimeout(() => {window.location.reload()}), 1000)
     }
 
+    if(!details) {
+        return <h3>Fetching potlucks</h3>
+    }
     return (
         <div className='potluck-container'>
             <h3>{details.potluck_name}</h3>

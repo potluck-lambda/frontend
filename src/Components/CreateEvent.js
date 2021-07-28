@@ -40,13 +40,13 @@ const initialErrors = {
 const initialDisabled = true
 
 // temp
-const dummyArray = []
+const initialArray = []
 
 function CreateEvent(props) {
     const history = useHistory();
 
     // temp
-    const [events, setEvents] = useState(dummyArray)
+    const [events, setEvents] = useState(initialArray)
 
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialErrors)

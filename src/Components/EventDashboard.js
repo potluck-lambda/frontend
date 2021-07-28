@@ -21,7 +21,7 @@ function EventDashboard(props) {
 
     return (
         <div>
-            <h2>Potlucks</h2>
+            <h2>Potlucks Dashboard</h2>
             <Link to='/protected/createevent'>
                 <button>Create new potluck</button>
             </Link>
