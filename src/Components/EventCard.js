@@ -1,11 +1,25 @@
 // How individual events will display on the DOM on the event dashboard page
+import axios from 'axios'
 import React from 'react'
+
+
 
 function EventCard(props) {
     const { details } = props
 
     if(!details) {
         return <h3>Fetching potlucks</h3>
+    }
+
+    function DeletePotluck(e) {
+        e.preventDefault()
+    
+        const { potluck_id } = details
+    
+        console.log('delete', potluck_id)
+        axios.delete(`https://potluckplanner-2.herokuapp.com/api/potlucks/${potluck_id}`)
+            .then(res => console.log('res', res))
+            .catch(err => console.log(err))
     }
 
     return (
@@ -26,7 +40,7 @@ function EventCard(props) {
             <div className='buttons'>
                 <button>Sign Up!</button>
                 <button>Edit Potluck</button>
-                <button>Delete Potluck</button>
+                <button onClick={DeletePotluck}>Delete Potluck</button>
             </div>
         </div>
     )

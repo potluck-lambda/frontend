@@ -150,7 +150,7 @@ function CreateEvent(props) {
                                 value={formValues.potluck_city}
                                 onChange={onChange}
                             />
-                            <label forhtml='potluck_state'>State</label>
+                            <label forhtml='potluck_state'>State (XX)</label>
                             <input 
                                 id='potluck_state'
                                 name='potluck_state'
