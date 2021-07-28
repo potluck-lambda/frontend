@@ -1,12 +1,12 @@
-import React, { Component, useState, useEffect } from 'react';
+import React, { useState, useEffect } from 'react';
 import { axiosWithAuth } from '../helper/axiosWithAuth';
 import { useHistory } from 'react-router-dom'
 import { connect } from 'react-redux'
 import { login } from '../actions'
 
 const initialUserValue = {
-  username:"",
-  password:""
+  username:'',
+  password:''
 }
 
 const Login = (props)=>{
@@ -49,23 +49,16 @@ const Login = (props)=>{
     <div className="Login">
         <h1>Potluck Login</h1>
       <form onSubmit={onSubmit}>
-        {/* {
-          this.state.error &&
-          <h2 data-test="error" onClick={this.RemoveError}>
-            <button onClick={this.RemoveError}>X</button>
-            {this.state.error}
-          </h2>
-        } */}
         <label>User Name</label>
-        <input type="text" data-test="username" value={user.username} onChange={updateLoginForm} />
+        <input name="username" value={user.username} onChange={updateLoginForm} />
 
         <label>Password</label>
-        <input type="password" data-test="password" value={user.password} onChange={updateLoginForm} />
+        <input name="password" value={user.password} onChange={updateLoginForm} />
 
         <input type="submit" value="Log In" data-test="submit" />
         
           <a href="/sign-up">
-              Register Now!
+            Register Now!
           </a>
       </form>
     </div>
