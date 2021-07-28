@@ -1,12 +1,12 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
+import { Link, useParams } from 'react-router-dom'
 
 import EventCard from './EventCard'
 
 const initialEvents = []
 
-function EventDashboard(props) {
+function EventDashboard() {
     const [events, setEvents] = useState(initialEvents)
 
     useEffect(() => {
@@ -18,6 +18,7 @@ function EventDashboard(props) {
             })
             .catch(err => console.log(err))
     }, [])
+
 
     return (
         <div>

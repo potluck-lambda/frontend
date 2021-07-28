@@ -9,6 +9,22 @@ import * as yup from 'yup'
 const today = new Date();
 today.setHours(0, 0, 0, 0)
 
+const initialValues = {
+    potluck_name: 'props.potluck_name',
+    potluck_date: '',
+    potluck_time: '',
+    
+    potluck_street: '',
+    potluck_city: '',
+    potluck_state: '',
+    potluck_country: '',
+    potluck_zip: '',
+
+    potluck_description: '',
+
+    user_id: '' // test : will have to be made dynamic once we get the ability to create users
+}
+
 const initialErrors = {
     potluck_name: '',
     potluck_date: '',
@@ -23,31 +39,28 @@ const initialErrors = {
 
 const initialDisabled = true
 
-// temp
-const initialArray = []
 
-function EditEvent(props) {
+
+function EditEvent() {
+
     const { id } = useParams();
     const history = useHistory();
+    
+    useEffect(() => {
+        axios.get(`https://potluckplanner-2.herokuapp.com/api/potlucks/${id}`)
+            .then(res => {
+                console.log(res.data)
+                setFormValues(res.data)
+            })
+            .catch(err => console.log(err))
+    }, [id])        
+
 
     // temp
     // const [events, setEvents] = useState(initialArray)
 
-    const [formValues, setFormValues] = useState({
-        potluck_name: '',
-        potluck_date: '',
-        potluck_time: '',
-        
-        potluck_street: '',
-        potluck_city: '',
-        potluck_state: '',
-        potluck_country: '',
-        potluck_zip: '',
 
-        potluck_description: '',
-
-        user_id: 1 // test : will have to be made dynamic once we get the ability to create users
-    })
+    const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
 
@@ -63,6 +76,7 @@ function EditEvent(props) {
             .then(res => {
                 console.log('res', res)
                 // setEvents(...events, res.data)
+                setFormValues(res.data)
                 setTimeout(() => {
                     history.push('/protected/eventlist')    
                 }, 500)

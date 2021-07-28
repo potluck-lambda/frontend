@@ -29,7 +29,7 @@ function EventCard(props) {
         axios.delete(`https://potluckplanner-2.herokuapp.com/api/potlucks/${potluck_id}`)
             .then(res => console.log('res', res))
             .catch(err => console.log(err))
-            // .finally(setTimeout(() => {window.location.reload()}), 1000)
+            // .finally(setTimeout(() => {window.location.reload()}), 10000)
     }
 
     if(!details) {
