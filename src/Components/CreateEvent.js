@@ -1,4 +1,7 @@
+import axios from 'axios';
 import React, { useState, useEffect } from 'react'
+import { useHistory } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import * as yup from 'yup'
 // import { reach } from 'yup'
 
@@ -17,13 +20,9 @@ const initialValues = {
     potluck_country: '',
     potluck_zip: '',
 
-    item1: '',
-    item2: '',
-    item3: '',
-    item4: '',
-    item5: '',
+    potluck_description: '',
 
-    potluck_description: ''
+    user_id: 1 // test : will have to be made dynamic once we get the ability to create users
 }
 
 const initialErrors = {
@@ -40,16 +39,18 @@ const initialErrors = {
 
 const initialDisabled = true
 
-const dummyArray = []
+// temp
+const initialArray = []
 
 function CreateEvent(props) {
+    const history = useHistory();
+
+    // temp
+    const [events, setEvents] = useState(initialArray)
 
     const [formValues, setFormValues] = useState(initialValues)
     const [formErrors, setFormErrors] = useState(initialErrors)
     const [disabled, setDisabled] = useState(initialDisabled)
-
-    // temporary - replace with a backend pull
-    const [dummy, setDummy] = useState(dummyArray)
 
     const onSubmit = evt => {
         evt.preventDefault()
@@ -57,21 +58,20 @@ function CreateEvent(props) {
         const newPotluck = {
             ...formValues            
         }
-        // temporary behavior. this puts newPotluck into dummy, but will eventually post to backend
         console.log(newPotluck)
-        setDummy([...dummy, newPotluck])
-        console.log(dummy)
-        setFormValues(initialValues)
-        setFormErrors(initialErrors)
-    }
 
-    // Currently, the errors do not display on the DOM, but they DO stop the submit button from prematurely activating
-    // const validate = (name, value) => {
-    //     reach(formSchema, name)
-    //         .validate(value)
-    //         .then(() => setFormErrors({ ...formErrors, [name]: ''}))
-    //         .catch(err => setFormErrors({ ...formErrors, [name]: err.errors[0]}))
-    // }
+        axios.post(`https://potluckplanner-2.herokuapp.com/api/potlucks`, newPotluck)
+            .then(res => {
+                console.log('res', res)
+                setEvents(...events, res.data)
+                setTimeout(() => {
+                    history.push('/protected/eventlist')    
+                }, 500)
+                
+            })
+            .catch(err => {console.log(err)})
+            .finally(() => {setFormValues(initialValues)}, setFormErrors(initialErrors))
+    }
 
     const onChange = evt => {
         const { name, value } = evt.target
@@ -80,7 +80,7 @@ function CreateEvent(props) {
 
     useEffect(() => {
         formSchema.isValid(formValues).then(valid => setDisabled(!valid))
-    }, [formValues])
+    }, [formValues])    
 
     // FORM
     return(
@@ -88,8 +88,10 @@ function CreateEvent(props) {
             <header>
                 <h2>Create Event</h2>
                 <nav>
-                    {/* The cancel buttons will eventually link back to the List of Events page */}
-                    <button>Cancel</button>                    
+                    <Link to='/protected/eventlist'>
+                        <button>Cancel</button>     
+                    </Link>
+                                       
                 </nav>
             </header>
             <div className='createEventForm'>
@@ -132,7 +134,7 @@ function CreateEvent(props) {
 
                     <fieldset>
                         <legend>Event Address</legend>
-                            <label for='potluck_street'>Street</label>
+                            <label forhtml='potluck_street'>Street</label>
                             <input 
                                 id='potluck_street'
                                 name='potluck_street'
@@ -140,7 +142,7 @@ function CreateEvent(props) {
                                 value={formValues.potluck_street}
                                 onChange={onChange}
                             />
-                            <label for='potluck_city'>City</label>
+                            <label forhtml='potluck_city'>City</label>
                             <input 
                                 id='potluck_city'
                                 name='potluck_city'
@@ -148,7 +150,7 @@ function CreateEvent(props) {
                                 value={formValues.potluck_city}
                                 onChange={onChange}
                             />
-                            <label for='potluck_state'>State</label>
+                            <label forhtml='potluck_state'>State (XX)</label>
                             <input 
                                 id='potluck_state'
                                 name='potluck_state'
@@ -156,7 +158,7 @@ function CreateEvent(props) {
                                 value={formValues.potluck_state}
                                 onChange={onChange}
                             />
-                            <label for='potluck_country'>Country</label>
+                            <label forhtml='potluck_country'>Country</label>
                             <select
                                 id='potluck_country'
                                 name='potluck_country'
@@ -164,53 +166,17 @@ function CreateEvent(props) {
                                 onChange={onChange}
                             >
                                 <option value=''>Select a Country</option>
-                                <option value='usa'>United States of America</option>
+                                <option value='USA'>United States of America</option>
                             </select>
-                            <label for='potluck_zip'>ZIP Code</label>
+                            <label forhtml='potluck_zip'>ZIP Code</label>
                             <input 
                                 id='potluck_zip'
                                 name='potluck_zip'
-                                type='text'
+                                type='number'
                                 value={formValues.potluck_zip}
                                 onChange={onChange}
                             />
-                    </fieldset>
-
-                    <fieldset>
-                        {/* Eventually, I think it should be set up to have 1 input box and a button that adds more input boxes as desired. 5 boxes will do for now, I believe. */}
-                        <legend>Items to bring (optional)</legend>
-
-                        <input 
-                            name='item1'
-                            type='text'
-                            value={formValues.item1}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item2'
-                            type='text'
-                            value={formValues.item2}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item3'
-                            type='text'
-                            value={formValues.item3}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item4'
-                            type='text'
-                            value={formValues.item4}
-                            onChange={onChange}
-                        />
-                        <input 
-                            name='item5'
-                            type='text'
-                            value={formValues.item5}
-                            onChange={onChange}
-                        />
-                    </fieldset>
+                    </fieldset>                    
 
                     <label>Description (optional):
                         <input 
@@ -220,7 +186,7 @@ function CreateEvent(props) {
                             onChange={onChange}
                         />
                     </label>
-
+                
                     <button id='submitBtn' disabled={disabled}>Submit</button>
                 </form>
             </div>
@@ -236,7 +202,7 @@ const formSchema = yup.object().shape({
         .trim()
         .required('please name your event'),
     
-    // currently allows the setting of times in the past
+    // currently allows the setting of times (not days) in the past
     potluck_date: yup
         .date()
         .required('please select a date')
@@ -246,10 +212,7 @@ const formSchema = yup.object().shape({
         .string()
         .required('please select a time'),
 
-    // event_location: yup
-    //     .string()
-    //     .trim()
-    //     .required('please provide a location'),
+
     potluck_street: yup
         .string()
         .required('please provide a street'),
@@ -259,12 +222,16 @@ const formSchema = yup.object().shape({
     potluck_state: yup
         .string()
         .required('please provide a state')
+        .min(2, 'two character states')
         .max(2, 'two characters only (ex. TX)'),
     potluck_country: yup
         .string()
-        .required('please select a country')
+        .required('please select a country'),
+    potluck_zip: yup
+        .string()
+        .required('please provide a zip code')
+        .min(5)
+        .max(5)
 })
 
 export { CreateEvent, formSchema }
-
-// test

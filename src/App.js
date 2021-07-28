@@ -3,13 +3,13 @@ import {Switch, Route} from "react-router-dom";
 import React from 'react';
 import HomePage from './Components/HomePage';
 import Login from './Components/Login'
+import EventDashboard from './Components/EventDashboard';
+import { CreateEvent } from './Components/CreateEvent'
+import { EditEvent } from './Components/EditEvent'
 import Register from './Components/Register'
-// import EventListPlaceholder from ''
-// import CreateEventPlaceholder from ''
-// import EditEventPlaceholder from ''
 import EventDetails from './Components/EventDetails'
 
-import { CreateEvent } from './Components/CreateEvent'
+
 
 function App() {
   return (
@@ -18,9 +18,9 @@ function App() {
           <Route exact path='/' component={HomePage}/>
           <Route exact path='/sign-up' component={Register}/>
           <Route exact path='/login' component={Login}/>
-          {/* <Route exact path='/protected/eventlist' component={EventListPlaceholder}/> */}
+          <Route exact path='/protected/eventlist' component={EventDashboard}/>
           <Route path='/protected/createevent' component={CreateEvent}/>
-          {/* <Route exact path='/protected/editevent' component={EditEventPlaceholder} /> */}
+          <Route exact path='/protected/editevent/:id' component={EditEvent} />
           <Route exact path='/protected/eventdetails' component={EventDetails}/>
         </Switch>
       </div>
