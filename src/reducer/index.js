@@ -1,42 +1,24 @@
-import { PLACEHOLDER } from '../actions'
+import { LOGIN, LOAD_EVENTS, RESTORE_DATA } from '../actions'
 
 const initialState = {
-    
+    user_id: null
 }
 
 const reducer = (state = initialState, action)=>{
     switch(action.type){
-        case PLACEHOLDER:
+        case LOGIN:
             return {
                 ...state,
-                
+                user_id: action.payload,
+                username: action.userName
             }
-        case PLACEHOLDER:
-            return {
-                ...state,
-                
-            }
-        case PLACEHOLDER:
+        case LOAD_EVENTS:
             return{
                 ...state,
-                
+                events: action.payload
             }
-
-        case PLACEHOLDER:
-            return{
-                ...state,
-                
-            }
-        case PLACEHOLDER:
-            return{
-                ...state,
-                
-            }
-        case PLACEHOLDER:
-            return{
-                ...state,
-                
-            }
+        case RESTORE_DATA:
+            return action.payload;
             
         default:
             return state
