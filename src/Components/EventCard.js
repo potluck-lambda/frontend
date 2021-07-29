@@ -1,19 +1,13 @@
 // How individual events will display on the DOM on the event dashboard page
 import axios from 'axios'
-import React, { useEffect } from 'react'
-import { Link, useHistory } from 'react-router-dom'
+import React from 'react'
+import { useHistory } from 'react-router-dom'
 
 
 function EventCard(props) {
-    // useEffect(() => {
-    //     console.log('refresh')
-    // })
+
     const history = useHistory()
     const { details } = props
-
-    useEffect(() => {
-        console.log('refresh')
-    }, [])
 
     function EditPotluck(e) {
         e.preventDefault()
