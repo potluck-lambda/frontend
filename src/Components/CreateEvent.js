@@ -3,6 +3,7 @@ import React, { useState, useEffect } from 'react'
 import { useHistory } from 'react-router-dom'
 import { Link } from 'react-router-dom'
 import * as yup from 'yup'
+import styled from 'styled-components'
 // import { reach } from 'yup'
 
 // So that dates in the past are not valid
@@ -42,7 +43,62 @@ const initialDisabled = true
 // temp
 const initialArray = []
 
-function CreateEvent(props) {
+ // Styling
+ const StyledButton = styled.button`
+ background-color: #3F51B5;
+ color: #FFFFFF;
+
+ transition: all 0.2s ease-in-out;
+ &:hover {
+     transition: all 0.2s ease-in-out;
+     background-color: #F50057;
+ };
+
+ &:disabled {
+ background-color: #4F4F4F;
+ }
+ `
+ const MasterContainer = styled.div`
+ width: 100%;
+ display: flex;
+ flex-flow: column;
+ align-items: center;
+ `
+ const CancelButtonNav = styled.nav`
+ margin-bottom: 2%;
+ `
+ const StyledForm = styled.form`
+ display: flex;
+ flex-flow: column;
+ align-items: center;
+ `
+ const GeneralLabel = styled.label`
+ margin-bottom: 2%;
+ color: #4F4F4F;
+ `
+ const GeneralInput = styled.input`
+ color: #4F4F4F;
+ background-color: #E8E8E8;
+ border-radius: 2px;
+ border: 1px solid #4F4F4F;
+ `
+ const StyledFieldset = styled.fieldset`
+ display: flex;
+ flex-flow: column;
+ align-items: center;
+ margin-bottom: 5%;
+ border-radius: 6px;
+ border: 2px solid #3F51B5;
+ `
+ const GeneralSelect = styled.select`
+ color: #4F4F4F;
+ background-color: #E8E8E8;
+ border-radius: 2px;
+ border: 1px solid #4F4F4F;
+ `
+
+function CreateEvent(props) {    
+
     const history = useHistory();
 
     // temp
@@ -82,20 +138,22 @@ function CreateEvent(props) {
         formSchema.isValid(formValues).then(valid => setDisabled(!valid))
     }, [formValues])    
 
+    
+
     // FORM
     return(
-        <div>
-            <header>
+        <MasterContainer>
+            <MasterContainer>
                 <h2>Create Event</h2>
-                <nav>
+                <CancelButtonNav>
                     <Link to='/protected/eventlist'>
-                        <button>Cancel</button>     
+                        <StyledButton>Cancel</StyledButton>     
                     </Link>
                                        
-                </nav>
-            </header>
+                </CancelButtonNav>
+            </MasterContainer>
             <div className='createEventForm'>
-                <form id='new-event-form' onSubmit={onSubmit}>
+                <StyledForm id='new-event-form' onSubmit={onSubmit}>
 
                     <div className='valid-errors'>
                         <div>{formErrors.potluck_name}</div>
@@ -105,92 +163,92 @@ function CreateEvent(props) {
                         <div>{formErrors.potluck_street}</div>
                     </div>
 
-                    <label>Event Name:
-                        <input 
+                    <GeneralLabel>Event Name: 
+                        <GeneralInput 
                             name='potluck_name'
                             type='text'
                             value={formValues.potluck_name}
                             onChange={onChange}
                         />
-                    </label>
+                    </GeneralLabel>
 
-                    <label>Date:
-                        <input 
+                    <GeneralLabel>Date: 
+                        <GeneralInput 
                             name='potluck_date'
                             type='date'
                             value={formValues.potluck_date}
                             onChange={onChange}
                         />
-                    </label>
+                    </GeneralLabel>
 
-                    <label>Time:
-                        <input 
+                    <GeneralLabel>Time: 
+                        <GeneralInput 
                             name='potluck_time'
                             type='time'
                             value={formValues.potluck_time}
                             onChange={onChange}
                         />
-                    </label>
+                    </GeneralLabel>
 
-                    <fieldset>
+                    <StyledFieldset>
                         <legend>Event Address</legend>
-                            <label forhtml='potluck_street'>Street</label>
-                            <input 
-                                id='potluck_street'
-                                name='potluck_street'
-                                type='text'
-                                value={formValues.potluck_street}
-                                onChange={onChange}
-                            />
-                            <label forhtml='potluck_city'>City</label>
-                            <input 
-                                id='potluck_city'
-                                name='potluck_city'
-                                type='text'
-                                value={formValues.potluck_city}
-                                onChange={onChange}
-                            />
-                            <label forhtml='potluck_state'>State (XX)</label>
-                            <input 
-                                id='potluck_state'
-                                name='potluck_state'
-                                type='text'
-                                value={formValues.potluck_state}
-                                onChange={onChange}
-                            />
-                            <label forhtml='potluck_country'>Country</label>
-                            <select
-                                id='potluck_country'
-                                name='potluck_country'
-                                value={formValues.potluck_country}
-                                onChange={onChange}
-                            >
-                                <option value=''>Select a Country</option>
-                                <option value='USA'>United States of America</option>
-                            </select>
-                            <label forhtml='potluck_zip'>ZIP Code</label>
-                            <input 
-                                id='potluck_zip'
-                                name='potluck_zip'
-                                type='number'
-                                value={formValues.potluck_zip}
-                                onChange={onChange}
-                            />
-                    </fieldset>                    
+                        <GeneralLabel forhtml='potluck_street'>Street</GeneralLabel>
+                        <GeneralInput 
+                            id='potluck_street'
+                            name='potluck_street'
+                            type='text'
+                            value={formValues.potluck_street}
+                            onChange={onChange}
+                        />
+                        <GeneralLabel forhtml='potluck_city'>City</GeneralLabel>
+                        <GeneralInput 
+                            id='potluck_city'
+                            name='potluck_city'
+                            type='text'
+                            value={formValues.potluck_city}
+                            onChange={onChange}
+                        />
+                        <GeneralLabel forhtml='potluck_state'>State (XX)</GeneralLabel>
+                        <GeneralInput 
+                            id='potluck_state'
+                            name='potluck_state'
+                            type='text'
+                            value={formValues.potluck_state}
+                            onChange={onChange}
+                        />
+                        <GeneralLabel forhtml='potluck_country'>Country</GeneralLabel>
+                        <GeneralSelect
+                            id='potluck_country'
+                            name='potluck_country'
+                            value={formValues.potluck_country}
+                            onChange={onChange}
+                        >
+                            <option value=''>Select a Country</option>
+                            <option value='USA'>United States of America</option>
+                        </GeneralSelect>
+                        <GeneralLabel forhtml='potluck_zip'>ZIP Code</GeneralLabel>
+                        <GeneralInput 
+                            id='potluck_zip'
+                            name='potluck_zip'
+                            type='number'
+                            value={formValues.potluck_zip}
+                            onChange={onChange}
+                        />
+                    </StyledFieldset>                    
 
-                    <label>Description (optional):
-                        <input 
+                    <GeneralLabel>Description (optional):
+                        <GeneralInput 
                             name='potluck_description'
                             type='text'
                             value={formValues.potluck_description}
                             onChange={onChange}
                         />
-                    </label>
+                    </GeneralLabel>
                 
-                    <button id='submitBtn' disabled={disabled}>Submit</button>
-                </form>
+                    <StyledButton id='submitBtn' disabled={disabled}>Submit</StyledButton>
+                </StyledForm>
             </div>
-        </div>        
+        </MasterContainer>        
     )
 }
 

@@ -1,3 +1,5 @@
+import styled from 'styled-components'
+
 export default {
     primaryColor: '#3F51B5',
     secondaryColor: '#F50057',
