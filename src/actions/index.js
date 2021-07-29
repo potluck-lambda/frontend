@@ -3,6 +3,7 @@ import { axiosWithAuth } from "../helper/axiosWithAuth"
 export const PLACEHOLDER = 'PLACEHOLDER'
 export const LOGIN = "LOGIN";
 export const LOAD_EVENTS = "LOAD_EVENTS";
+export const RESTORE_DATA = "RESTORE_DATA";
 
 export const login = (id,events,username) => {
     return(dispatch) => {
@@ -19,4 +20,8 @@ export const getEvents = () => {
                 dispatch({ type: LOAD_EVENTS, payload: res.data })
             })
     }
+}
+
+export const restoreData = (backup)=>{
+    return {type:RESTORE_DATA, payload: backup}
 }

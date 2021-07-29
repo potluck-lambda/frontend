@@ -52,7 +52,7 @@ const Login = (props)=>{
   }
   useEffect(()=>{
       if(props.id){
-          push("PLACEHOLDER eventlist goes here")
+          push("/protected/eventlist")
       }
   },[])
 

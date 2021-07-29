@@ -45,20 +45,18 @@ export default function Register() {
 
 
   const onSubmit = event => {
-    console.log(event)
-      event.preventDefault()
-      axios.post('https://potluckplanner-2.herokuapp.com/auth/sign-up', newUser)
-      .then(res=>{
-          push("/login")
-      })
-      .catch(error=>{
-          alert(error.response.data.message)
-      })
+    event.preventDefault()
+    axios.post('https://potluckplanner-2.herokuapp.com/auth/sign-up', newUser)
+    .then(res=>{
+        push("/login")
+    })
+    .catch(error=>{
+        alert(error.response.data.message)
+    })
 
   }
 
   const onChange = (e) => {
-    
       const { name, value } = e.target
       setNewUser({ ...newUser, [name]: value })
   }

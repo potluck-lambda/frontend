@@ -1,13 +1,30 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
 import { Link, useParams } from 'react-router-dom'
+import { restoreData } from '../actions'
 
 import EventCard from './EventCard'
 
 const initialEvents = []
 
-function EventDashboard() {
+function EventDashboard(props) {
     const [events, setEvents] = useState(initialEvents)
+
+    // useEffect(()=>{
+    //     const userData = localStorage.getItem("user-data");
+    //     let backup;
+    //     if(userData && !props.state.user_id){
+    //         backup = JSON.parse(userData);
+    //         props.dispatch(restoreData(backup));
+    //     }else if( userData && props.state.user_id){
+    //         backup = JSON.stringify(props.state);
+    //         localStorage.setItem("user-data",backup);
+    //     }
+    //     else{
+    //         backup = JSON.stringify(props.state);
+    //         localStorage.setItem("user-data",backup);
+    //     }
+    // },[props.state]);
 
     useEffect(() => {
         console.log('in useEffect')
