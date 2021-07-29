@@ -56,6 +56,20 @@ const Login = (props)=>{
       }
   },[])
 
+  //   const onSubmit = e => {
+  //     e.preventDefault();
+  //     axiosWithAuth().post("/auth/login", user)
+  //     .then(res1=>{
+  //         localStorage.setItem("token", res1.data.token)
+  //         push('/protected/eventlist')
+  //         props.dispatch(res1.data)
+  //         console.log(res1.data)
+  //     })
+  //     .catch(error=>{
+  //         alert("Username or password is incorrect")
+  //     })
+  // }
+
   const onSubmit = e => {
       e.preventDefault();
       axiosWithAuth().post("/auth/login", user)
@@ -68,6 +82,7 @@ const Login = (props)=>{
           .then(res2 =>{
               const {data} = res2
               props.dispatch(login(res1.user_id, data, res1.username))
+              console.log(`in res1 ${res1.user_id}`)
               push('/protected/eventlist')
           })
       })

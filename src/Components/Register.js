@@ -42,6 +42,7 @@ export default function Register() {
 
   const [newUser, setNewUser] = useState(initialValues)
   const {push} = useHistory()
+  const classes = useStyles()
 
 
   const onSubmit = event => {
@@ -60,8 +61,6 @@ export default function Register() {
       const { name, value } = e.target
       setNewUser({ ...newUser, [name]: value })
   }
-
-  const classes = useStyles();
 
   return (
     <div className="classes.Login">      
