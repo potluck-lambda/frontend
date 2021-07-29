@@ -10,17 +10,15 @@ const initialEvents = []
 
 function EventDashboard(props) {
     const [events, setEvents] = useState(initialEvents)
+    console.log(props)
 
     useEffect(() => {
-        console.log('in useEffect')
         axios.get(`https://potluckplanner-2.herokuapp.com/api/potlucks`)
             .then(res => {
                 setEvents(res.data)
             })
             .catch(err => console.log(err))
     }, [])
-
-    console.log(props)
 
     useEffect(()=>{
         const userData = localStorage.getItem("user-data");
