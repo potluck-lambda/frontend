@@ -52,7 +52,7 @@ const Login = (props)=>{
   }
   useEffect(()=>{
       if(props.id){
-          push("PLACEHOLDER eventlist goes here")
+          push("/protected/eventlist")
       }
   },[])
 
@@ -68,6 +68,7 @@ const Login = (props)=>{
           .then(res2 =>{
               const {data} = res2
               props.dispatch(login(res1.user_id, data, res1.username))
+              console.log(`in res1 ${res1.user_id}`)
               push('/protected/eventlist')
           })
       })

@@ -1,20 +1,21 @@
 import React, { useState, useEffect } from 'react'
 import axios from 'axios'
-import { Link } from 'react-router-dom'
 import styled from 'styled-components'
+import { Link, useParams } from 'react-router-dom'
+import { connect } from 'react-redux'
 
+import { restoreData } from '../actions'
 import EventCard from './EventCard'
 
 const initialEvents = []
 
-function EventDashboard() {
+function EventDashboard(props) {
     const [events, setEvents] = useState(initialEvents)
+    console.log(props)
 
     useEffect(() => {
-        console.log('in useEffect')
         axios.get(`https://potluckplanner-2.herokuapp.com/api/potlucks`)
             .then(res => {
-                console.log(res.data)
                 setEvents(res.data)
             })
             .catch(err => console.log(err))
@@ -36,6 +37,21 @@ function EventDashboard() {
         background-color: #F50057;
     };
     `
+    useEffect(()=>{
+        const userData = localStorage.getItem("user-data");
+        let backup;
+        if(userData && !props.state.user_id){
+            backup = JSON.parse(userData);
+            props.dispatch(restoreData(backup));
+        }else if( userData && props.state.user_id){
+            backup = JSON.stringify(props.state);
+            localStorage.setItem("user-data",backup);
+        }
+        else{
+            backup = JSON.stringify(props.state);
+            localStorage.setItem("user-data",backup);
+        }
+    },[props.state]);
 
     return (
         <MasterCardsContainer>
@@ -57,4 +73,6 @@ function EventDashboard() {
     )
 }
 
-export default EventDashboard
+export default connect(state=>{
+    return{state}
+})(EventDashboard)
