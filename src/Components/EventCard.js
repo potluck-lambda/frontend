@@ -36,8 +36,8 @@ function EventCard(props) {
     margin-top: 2%;
     width: 88%;
     display: flex;
-    justify-content: center;
     flex-flow: column;
+    align-items: center;
     padding: 2%;
     `
     const StateCaps = styled.span`
@@ -61,6 +61,15 @@ function EventCard(props) {
     border-radius: 8px;
     border-bottom: 2px solid #3F51B5;
     padding-top: 2%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    `
+    const ButtonsContainer = styled.div`
+    width:100%;
+    display: flex;
+    flex-flow: row;
+    justify-content: center;
     `
 
     if(!details) {
@@ -83,11 +92,11 @@ function EventCard(props) {
             <span> {details.potluck_zip}</span>
             </p>
 
-            <div className='buttons'>
+            <ButtonsContainer>
                 <StyledButton>Sign Up!</StyledButton>
                 <StyledButton onClick={EditPotluck}>Edit Potluck</StyledButton>
                 <StyledButton onClick={DeletePotluck}>Delete Potluck</StyledButton>
-            </div>
+            </ButtonsContainer>
         </CardContainer>
     )
 }

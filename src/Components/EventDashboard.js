@@ -20,22 +20,40 @@ function EventDashboard() {
             .catch(err => console.log(err))
     }, [])
 
+    const MasterCardsContainer = styled.div`
+    width: 100%;
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    `
+    const StyledButton = styled.button`
+    background-color: #3F51B5;
+    color: #FFFFFF;
+
+    transition: all 0.2s ease-in-out;
+    &:hover {
+        transition: all 0.2s ease-in-out;
+        background-color: #F50057;
+    };
+    `
 
     return (
-        <div>
+        <MasterCardsContainer>
             <h2>Potlucks Dashboard</h2>
             <Link to='/protected/createevent'>
-                <button>Create new potluck</button>
+                <StyledButton>Create new potluck</StyledButton>
             </Link>
-            
+            <MasterCardsContainer>
             {
                 events.map(ev => {
                     return (
                         <EventCard key={ev.potluck_id} details={ev} />
                     )
                 })
-            }
-        </div>
+            }    
+            </MasterCardsContainer>
+            
+        </MasterCardsContainer>
     )
 }
 
