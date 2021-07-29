@@ -8,6 +8,7 @@ import { CreateEvent } from './Components/CreateEvent'
 import { EditEvent } from './Components/EditEvent'
 import Register from './Components/Register'
 import EventDetails from './Components/EventDetails'
+import FoodsForm from './Components/FoodsForm';
 
 
 
@@ -20,6 +21,7 @@ function App() {
           <Route exact path='/login' component={Login}/>
           <Route exact path='/protected/eventlist' component={EventDashboard}/>
           <Route path='/protected/createevent' component={CreateEvent}/>
+          <Route path='/protected/add-foods' component={FoodsForm}/>
           <Route exact path='/protected/editevent/:id' component={EditEvent} />
           <Route exact path='/protected/eventdetails' component={EventDetails}/>
         </Switch>

@@ -37,7 +37,7 @@ const Login = (props)=>{
           .then(res2 =>{
               const {data} = res2
               props.dispatch(login(res1.user_id, data, res1.username))
-              push('PLACEHOLDER event list goes here')
+              push('/protected/eventlist')
           })
       })
       .catch(error=>{

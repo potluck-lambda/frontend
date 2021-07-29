@@ -10,3 +10,13 @@ export const login = (id,events,username) => {
        dispatch({type:LOAD_EVENTS, payload: events});
     }
 }
+
+export const getEvents = () => {
+    return (dispatch) => {
+        axiosWithAuth()
+            .get("/api/potlucks")
+            .then(res => {
+                dispatch({ type: LOAD_EVENTS, payload: res.data })
+            })
+    }
+}
