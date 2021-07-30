@@ -7,6 +7,9 @@ import styled from 'styled-components'
 
 function EventCard(props) {
 
+    const userData = localStorage.getItem("user-data");
+    console.log(userData)
+    console.log(localStorage.getItem("user-data")["user_id"])
     const history = useHistory()
     const { details } = props
 
@@ -94,8 +97,13 @@ function EventCard(props) {
 
             <ButtonsContainer>
                 <StyledButton>Sign Up!</StyledButton>
-                <StyledButton onClick={EditPotluck}>Edit Potluck</StyledButton>
-                <StyledButton onClick={DeletePotluck}>Delete Potluck</StyledButton>
+                {userData['user_id'] === '8' && 
+                    <StyledButton onClick={EditPotluck}>Edit Potluck</StyledButton>
+                }
+                {userData[11] === '8' && 
+                    <StyledButton onClick={DeletePotluck}>Delete Potluck</StyledButton>
+                }
+                
             </ButtonsContainer>
         </CardContainer>
     )

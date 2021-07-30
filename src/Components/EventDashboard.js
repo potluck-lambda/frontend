@@ -11,7 +11,6 @@ const initialEvents = []
 
 function EventDashboard(props) {
     const [events, setEvents] = useState(initialEvents)
-    console.log(props.state.user_id)
 
     useEffect(() => {
         axios.get(`https://potluckplanner-2.herokuapp.com/api/potlucks`)
